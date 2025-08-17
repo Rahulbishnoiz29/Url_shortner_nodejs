@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+    /* General Styling */
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-top: 20px;
+    }
+
+    /* Form Styling */
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px auto;
+      padding: 15px;
+      background: #fff;
+      width: 60%;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      margin-right: 10px;
+      font-weight: 500;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+
+    /* Short URL Display */
+    h2 {
+      text-align: center;
+      margin: 15px;
+      padding: 10px;
+      background: #eaf2f8;
+      border: 1px solid #d6eaf8;
+      border-radius: 8px;
+      color: #2c3e50;
+    }
+
+    /* Table Styling */
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+    }
+
+    thead {
+      background: #3498db;
+      color: white;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    tbody tr:hover {
+      background: #f1f1f1;
+    }
+
+    td {
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+    <h1>Url Shortner</h1>
+    <div>
+        <form action="/" method="POST">
+            <label for="url">Enter Url</label>
+            <input type="text" name="url" >
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+    <div>
+        <% if (locals.id) { %>
+                <h2>Your Short Id is http://localhost:8002<%=locals.id %></h2>
+        <% } %>
+    </div>
+    <div>
+    <% if (locals.users) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Short Id</th>
+                    <th>Redirect Url</th>
+                    <th>Total Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% locals.users.forEach((user, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= user.shortUrl %></td>
+                        <td><%= user.redirectUrl %></td>
+                        <td><%= user.visitHistory.length %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+</div>
+
+</body>
+</html>

@@ -3,9 +3,14 @@ const User = require('../models/url');
 const shortid = require('shortid');
 
 
+async function handleHomeRoute(req , res){
+    
+    return res.render('home');
+}
+
 async function handleGenerateShortUrl(req, res){
         const body = req.body;
-
+        const allUsers = await User.find({});
         if(!body.url){
             res.json({error : "url is required"});
         }
@@ -17,8 +22,8 @@ async function handleGenerateShortUrl(req, res){
             redirectUrl : body.url,
             visitHistory : [],
         });
-
-        return res.json({id : shortId});
+        return res.render('home',{users : allUsers,id : shortId})
+        
 }
 
 async function handleGetAnalytics(req , res){
@@ -54,4 +59,5 @@ module.exports = {
     handleGenerateShortUrl,
     handleGetAnalytics,
     handleTotalVisits,
+    handleHomeRoute,
 }
